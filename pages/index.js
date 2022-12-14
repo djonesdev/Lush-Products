@@ -11,18 +11,18 @@ const ProductsListStyles = styled.div`
   grid-gap: 60px;
 `;
 
-export default function index() {
+export default function HomePage() {
     const initialQueryParams = { channel: 'uk', first: 0, last: 10 }
     const { data, loading: isLoading, error } = useQuery(PRODUCT_QUERY, {
         variables: initialQueryParams
     })
 
-    if(isLoading) return <p>Loading ... </p>
+    if(isLoading) return <p>Loading... </p>
     if(error) return <p>We have an error! Please try again later</p>
     return (
         <ProductsListStyles>
             {data?.products?.edges?.map(product =>
-                <ItemOverview product={product} />
+                <ItemOverview key={product.node.key} product={product} />
             )}
         </ProductsListStyles>
     )
