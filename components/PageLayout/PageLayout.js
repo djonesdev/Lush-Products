@@ -1,6 +1,6 @@
 import React from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
-import Header from './Header'
+import Header from '../Header/Header'
 
 const GlobalStyles = createGlobalStyle`
     @font-family: 'radnika_next';
@@ -50,7 +50,7 @@ const InnerStyles = styled.div`
     padding: 2rem;
 `;
 
-export default function OrdersPage({ children }) {
+export default function PageLayout({ children }) {
   return (
     <div>
         <GlobalStyles />

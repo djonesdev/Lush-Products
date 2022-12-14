@@ -1,17 +1,17 @@
-import Page from '../components/Page'
+import PageLayout from '../components/PageLayout/PageLayout'
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
 
-// import Router from 'next/router'
-// import NProgress from 'nprogress'
-// import '../components/styles/nprogress.css'
-
-// Router.events.on('routeChangeStart', () => NProgress.start())
-// Router.events.on('routeChangeComplete', () => NProgress.done())
-// Router.events.on('routeChangeError', () => NProgress.done())
+const client = new ApolloClient({
+    uri: 'https://twstg2.eu.saleor.cloud/graphql/', 
+    cache: new InMemoryCache()
+})
 
 export default function MyApp({ Component, pageProps }) {
     return (
-        <Page>
-            <Component {...pageProps} />
-        </Page>
+        <ApolloProvider client={client}>
+            <PageLayout>
+                <Component {...pageProps} />
+            </PageLayout>
+        </ApolloProvider>
     )
 }

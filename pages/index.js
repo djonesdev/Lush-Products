@@ -1,7 +1,9 @@
+import { useQuery } from '@apollo/client';
 import React from 'react'
 import styled from 'styled-components'
 
-import ItemOverview from '../components/ItemOverview'
+import ItemOverview from '../components/ItemOverview/ItemOverview'
+import { PRODUCT_QUERY } from '../graphQL/queries/products'
 
 const ProductsListStyles = styled.div`
   display: grid;
@@ -10,94 +12,18 @@ const ProductsListStyles = styled.div`
 `;
 
 export default function index() {
+    const initialQueryParams = { channel: 'uk', first: 0, last: 10 }
+    const { data, loading: isLoading, error } = useQuery(PRODUCT_QUERY, {
+        variables: initialQueryParams
+    })
+
+    if(isLoading) return <p>Loading ... </p>
+    if(error) return <p>We have an error! Please try again later</p>
     return (
         <ProductsListStyles>
-            <ItemOverview product={{
-  // __typename: 'Item',
-  id: 'abc123',
-  price: 5000,
-  user: null,
-  photo: {
-    id: 'abc123',
-    altText: 'Bath bomb',
-    image: {
-      url: 'test.jpg',
-    },
-  },
-  name: 'Bath bomb',
-  description: 'Put it in your bath',
-}} />
-<ItemOverview product={{
-  // __typename: 'Item',
-  id: 'abc123',
-  price: 5000,
-  user: null,
-  photo: {
-    id: 'abc123',
-    altText: 'Bath bomb',
-    image: {
-      url: 'test.jpg',
-    },
-  },
-  name: 'Bath bomb',
-  description: 'Put it in your bath',
-}} /><ItemOverview product={{
-    // __typename: 'Item',
-    id: 'abc123',
-    price: 5000,
-    user: null,
-    photo: {
-      id: 'abc123',
-      altText: 'Bath bomb',
-      image: {
-        url: 'test.jpg',
-      },
-    },
-    name: 'Bath bomb',
-    description: 'Put it in your bath',
-  }} /><ItemOverview product={{
-    // __typename: 'Item',
-    id: 'abc123',
-    price: 5000,
-    user: null,
-    photo: {
-      id: 'abc123',
-      altText: 'Bath bomb',
-      image: {
-        url: 'test.jpg',
-      },
-    },
-    name: 'Bath bomb',
-    description: 'Put it in your bath',
-  }} /><ItemOverview product={{
-    // __typename: 'Item',
-    id: 'abc123',
-    price: 5000,
-    user: null,
-    photo: {
-      id: 'abc123',
-      altText: 'Bath bomb',
-      image: {
-        url: 'test.jpg',
-      },
-    },
-    name: 'Bath bomb',
-    description: 'Put it in your bath',
-  }} /><ItemOverview product={{
-    // __typename: 'Item',
-    id: 'abc123',
-    price: 5000,
-    user: null,
-    photo: {
-      id: 'abc123',
-      altText: 'Bath bomb',
-      image: {
-        url: 'test.jpg',
-      },
-    },
-    name: 'Bath bomb',
-    description: 'Put it in your bath',
-  }} />
+            {data?.products?.edges?.map(product =>
+                <ItemOverview product={product} />
+            )}
         </ProductsListStyles>
     )
 }
