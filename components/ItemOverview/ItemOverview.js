@@ -7,6 +7,8 @@ export default function ItemOverview({ product }) {
     const { id, pricing, name, thumbnail } = product.node
     const productPrice = pricing.priceRange.start.gross.amount
 
+    console.log(id, "id")
+
     return (
         <ItemStyles>
         <img
