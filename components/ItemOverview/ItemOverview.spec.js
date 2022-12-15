@@ -1,11 +1,13 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
 import ItemOverview from "./ItemOverview"
-import { mockProduct } from "../../utils/testUtils/mockProduct"
+import mockProductsResponse from "../../utils/testUtils/mockProductsResponse"
 
 describe("ItemOverview", () => {
     beforeEach(() => {
-        render (<ItemOverview product={mockProduct} />)
+        render (
+            <ItemOverview product={mockProductsResponse.products.edges[0]} />
+        )
     })
 
     it('Should render the name of the product', () => {
@@ -13,7 +15,6 @@ describe("ItemOverview", () => {
     })
 
     it('Should render a button list', () => {
-        expect(screen.getByText('More Information')).toBeInTheDocument();
         expect(screen.getByText('Add to cart')).toBeInTheDocument();
     })
 })

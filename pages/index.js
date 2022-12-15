@@ -1,5 +1,4 @@
 import { useQuery } from '@apollo/client';
-import React from 'react'
 import styled from 'styled-components'
 
 import ItemOverview from '../components/ItemOverview/ItemOverview'
@@ -12,13 +11,13 @@ const ProductsListStyles = styled.div`
 `;
 
 export default function HomePage() {
-    const initialQueryParams = { channel: 'uk', first: 0, last: 10 }
+    const initialQueryParams = { channel: 'uk', first: 0, last: 10, isPublished: true }
     const { data, loading: isLoading, error } = useQuery(PRODUCT_QUERY, {
         variables: initialQueryParams
     })
 
     if(isLoading) return <p>Loading... </p>
-    if(error) return <p>We have an error! Please try again later</p>
+    if(error) return <p>We have an error! Please try again later {error}</p>
     return (
         <ProductsListStyles>
             {data?.products?.edges?.map(product =>

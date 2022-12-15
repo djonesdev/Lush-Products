@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 const Item = styled.div`
   background: white;
-  border: 1px solid var(--offWhite);
   box-shadow: var(--bs);
   position: relative;
   display: flex;
@@ -22,15 +21,25 @@ const Item = styled.div`
   .buttonList {
     display: grid;
     width: 100%;
-    border-top: 1px solid var(--lightGray);
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     grid-gap: 1px;
-    background: var(--lightGray);
+    justify-items: center;
     & > * {
-      background: white;
       border: 0;
+      border-radius: 9999px;
       font-size: 1rem;
       padding: 1rem;
+    }
+  }
+  button {
+    background-color: var(--green); 
+    color: var(--offWhite);
+    font-weight: 600;
+    width: 50%;
+    &:hover {
+      background-color: var(--lightGrey);
+      transition: background-color .20s ease-in;
+      color: var(--black);
     }
   }
 `;

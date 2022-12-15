@@ -1,11 +1,36 @@
-import { useRouter } from 'next/router'
+import { useQuery } from '@apollo/client';
+import { useRouter } from 'next/router';
+import styled from 'styled-components';
 
-export default function ProductView(props) {
+import { SINGLE_PRODUCT_QUERY } from '../../graphQL/queries/singleProduct'
+import DisplayError from '../../components/ErrorMessage'
+import SingleProduct from '../../components/SingleProduct/SingleProduct';
+
+const ProductStyles = styled.div`
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
+  max-width: var(--maxWidth);
+  justify-content: center;
+  align-items: top;
+  gap: 2rem;
+  img {
+    width: 100%;
+    object-fit: contain;
+  }
+`;
+
+export default function SingleProductPage() {
     const { query } = useRouter()
-    console.log(query.productId, "query")
-  return (
-    <div>
-      <p> Welcome to the single product page {query.productId}</p>
-    </div>
-  )
+    const { data, loading, error } = useQuery(SINGLE_PRODUCT_QUERY, {
+        variables: {
+          id: query.productId,
+          channel: 'uk',
+        },
+      });
+    if (loading) return <p>Loading...</p>;
+    if (error) return <DisplayError error={error} />;
+
+    const { product } = data
+    return <SingleProduct product={product} />;
 }

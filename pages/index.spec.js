@@ -5,51 +5,29 @@ import Home from './index';
 
 import { PRODUCT_QUERY } from '../graphQL/queries/products';
 import { act } from 'react-dom/test-utils';
+import mockProductsResponse from '../utils/testUtils/mockProductsResponse';
 
 const mockQuery = [
   {
     request: {
       query: PRODUCT_QUERY,
-      variables: { channel: 'uk', first: 0, last: 10 },
+        variables: { 
+            channel: 'uk', 
+            first: 0, 
+            last: 10, 
+            isPublished: true 
+        }
     },
     result: {
         loading: false,
-      data: {
-        products: { 
-            __typename:"ProductCountableConnection",
-            edges: [
-                {
-                    __typename:"ProductCountableEdge",
-                    node: { 
-                        __typename: "Product",
-                        id: "UHJvZHVjdDoxMjk=",
-                        name:"Whoosh",
-                        description: '"description": "lorem ipsum"',
-                        pricing: {
-                            priceRange: {
-                                start: {
-                                    gross: {
-                                        amount: 10
-                                    }
-                                }
-                            }
-                        },
-                        thumbnail: {
-                            __typename: "Image",
-                            url: "https://twstg2.eu.saleor.cloud/media/__sized__/products/whoosh_shower_jelly_2020-thumbnail-255x255.png",
-                            alt:""
-                        }
-                    }
-                },
-            ],
-        },        
-    },
-  }
-}]
+        data: mockProductsResponse
+    }
+}
+]
 
 
-describe('App tests', () => {
-    it('should contains the heading 1', async () => {
+describe('Products list page', () => {
+    it('Should contain items from a successful query', async () => {
         await act(async () => {
             render(
                 <MockedProvider mocks={mockQuery}>
