@@ -8,8 +8,8 @@ const Item = styled.div`
   flex-direction: column;
   img {
     width: 100%;
-    height: 400px;
-    object-fit: cover;
+    height: 200px;
+    object-fit: contain;
   }
   p {
     line-height: 2;
@@ -24,23 +24,6 @@ const Item = styled.div`
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     grid-gap: 1px;
     justify-items: center;
-    & > * {
-      border: 0;
-      border-radius: 9999px;
-      font-size: 1rem;
-      padding: 1rem;
-    }
-  }
-  button {
-    background-color: var(--green); 
-    color: var(--offWhite);
-    font-weight: 600;
-    width: 50%;
-    &:hover {
-      background-color: var(--lightGrey);
-      transition: background-color .20s ease-in;
-      color: var(--black);
-    }
   }
 `;
 

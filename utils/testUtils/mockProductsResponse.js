@@ -1,5 +1,6 @@
 export default {
     products: {
+        pageInfo: {}, 
         edges: [
             {
                 __typename:"ProductCountableEdge",
