@@ -24,6 +24,7 @@ const mockQuery = [
                         __typename: "Product",
                         id: "UHJvZHVjdDoxMjk=",
                         name:"Whoosh",
+                        description: '"description": "lorem ipsum"',
                         pricing: {
                             priceRange: {
                                 start: {

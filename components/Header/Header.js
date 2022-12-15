@@ -37,7 +37,7 @@ export default function Header() {
     <HeaderStyles>
       <div className="bar">
         <Logo>
-          <Link href="/">Cosmetics</Link>
+          <Link data-testid="home-page-link" href="/">Cosmetics</Link>
         </Logo>
       </div>
       <div className="sub-bar">
