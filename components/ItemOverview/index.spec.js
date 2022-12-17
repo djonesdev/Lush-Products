@@ -1,6 +1,6 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
-import ItemOverview from "./ItemOverview"
+import ItemOverview from "."
 import mockProductsResponse from "../../utils/testUtils/mockProductsResponse"
 
 describe("ItemOverview", () => {

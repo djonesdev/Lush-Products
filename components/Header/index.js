@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import styled from 'styled-components';
+import useCart from 'utils/useCart';
 import CategoryList from '../Nav/Nav';
 
 const Logo = styled.h1`
@@ -33,13 +34,16 @@ const HeaderStyles = styled.header`
 `;
 
 export default function Header() {
+  const { cartItems } = useCart()
+  console.log(cartItems, "This should be the cart items")
   return (
-    <HeaderStyles>
+  <HeaderStyles>
       <div className="bar">
         <Logo>
           <Link data-testid="home-page-link" href="/">Cosmetics</Link>
         </Logo>
       </div>
+      {/* <p>{cartItems.length}</p> */}
     </HeaderStyles>
   );
 }

@@ -27,13 +27,13 @@ export default {
       media: [
         {
           id: "UHJvZHVjdE1lZGlhOjIzMg==",
-          alt: "",
+          alt: "MOCK_ALT",
           url: "https://twstg2.eu.saleor.cloud/media/products/whoosh_shower_jelly_2020.png",
           __typename: "ProductMedia",
         },
         {
           id: "UHJvZHVjdE1lZGlhOjQ5Mw==",
-          alt: "",
+          alt: "MOCK_ALT",
           url: "https://twstg2.eu.saleor.cloud/media/products/hero_whoosh_shower_jelly_sp_part_4.jpg",
           __typename: "ProductMedia",
         },

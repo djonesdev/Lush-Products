@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { createGlobalStyle } from "styled-components";
-import Header from "../Header/Header";
+import Header from "../Header";
 
 const GlobalStyles = createGlobalStyle`
     @font-family: 'radnika_next';

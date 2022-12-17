@@ -1,6 +1,6 @@
 import React from "react";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import SingleProduct from "./SingleProduct";
+import SingleProduct from ".";
 import mockProductResponse from "../../utils/testUtils/mockProductResponse";
 
 describe("SingleProduct", () => {

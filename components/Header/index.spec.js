@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react"
 import { RouterContext } from "next/dist/shared/lib/router-context";
 
 import { routerMock } from "../../utils/testUtils/mockRouter";
-import Header from "./Header"
+import Header from "."
 
 describe("Header", () => {
     beforeEach(() => {
