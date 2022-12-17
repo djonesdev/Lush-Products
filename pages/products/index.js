@@ -1,11 +1,12 @@
 import { useEffect } from "react";
-import { useLazyQuery } from "@apollo/client";
+import { useLazyQuery, useQuery } from "@apollo/client";
 import styled from "styled-components";
 
 import { StyledButton, Card } from "components/styles";
 import { PRODUCT_QUERY } from "graphQL/queries/products";
+import { CATEGORIES_QUERY } from "graphQL/queries/categories"
 import { onClickTogglePage } from "./handlers";
-import { DisplayError, ItemOverview } from "components";
+import { CategoryList, DisplayError, ItemOverview } from "components";
 
 const ProductsListStyles = styled.div`
   display: grid;
@@ -41,6 +42,10 @@ export default function HomePage() {
   const [getProducts, { loading: isLoading, error, data }] =
     useLazyQuery(PRODUCT_QUERY);
 
+  const { data: categoryData } = useQuery(CATEGORIES_QUERY, {
+    variables: { first: 10 },
+  });
+
   useEffect(() => {
     getProducts({ variables: queryParams });
   }, []);
@@ -50,7 +55,7 @@ export default function HomePage() {
     last: pageLimit,
     first: 0,
     before: data?.products?.pageInfo.startCursor,
-  }
+  };
   // TODO: This doesn't seem to be working correctly, i expect the below query
   // to return the last 20 products before the current first product occupying index 0
   // Looks like it actually takes me back to the beginning of the products list and carries on from there
@@ -61,13 +66,24 @@ export default function HomePage() {
       last: pageLimit,
       before: data?.products?.pageInfo.endCursor,
     },
-  }
+  };
 
+  const onClickCategory = (category) => {
+    const query = {
+      variables: queryParams,
+      last: pageLimit,
+      first: 0,
+      before: data?.products?.pageInfo.startCursor,
+      filter: { search: category }
+    }
+    onClickTogglePage(getProducts, query)
+  };
 
   if (isLoading) return <p>Loading... </p>;
   if (error) return <DisplayError error={error} />;
   return (
     <>
+      <CategoryList onClick={onClickCategory} categories={categoryData?.categories} />
       <ProductsListStyles>
         {data?.products?.edges?.map((product) => (
           <Card key={product.node.key}>

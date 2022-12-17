@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import styled from 'styled-components';
-import Nav from '../Nav/Nav';
+import CategoryList from '../Nav/Nav';
 
 const Logo = styled.h1`
   font-size: 4rem;
@@ -40,7 +40,6 @@ export default function Header() {
           <Link data-testid="home-page-link" href="/">Cosmetics</Link>
         </Logo>
       </div>
-      <Nav />
     </HeaderStyles>
   );
 }

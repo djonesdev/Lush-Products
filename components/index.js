@@ -1,6 +1,6 @@
 export { default as Header } from './Header/Header'
 export { default as ItemOverview } from './ItemOverview/ItemOverview'
-export { default as Nav } from './Nav/Nav'
+export { default as CategoryList } from './Nav/Nav'
 export { default as PageLayout } from './PageLayout/PageLayout'
 export { default as SingleProduct } from './SingleProduct/SingleProduct'
 export { default as DisplayError } from './ErrorMessage'

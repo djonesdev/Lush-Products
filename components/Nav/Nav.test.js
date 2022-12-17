@@ -1,10 +1,10 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
-import Nav from "./Nav"
+import CategoryList from "./Nav"
 
-describe("Nav", () => {
+describe("CategoryList", () => {
     beforeEach(() => {
-        render (<Nav />)
+        render (<CategoryList />)
     })
 
     it('Should render the name of the product', () => {
