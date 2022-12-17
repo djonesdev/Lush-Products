@@ -8,6 +8,7 @@ export const PRODUCT_QUERY = gql`
     $filter: ProductFilterInput
     $before: String
     $after: String
+    $sortBy: ProductOrder
   ) {
     products(
       channel: $channel
@@ -16,6 +17,7 @@ export const PRODUCT_QUERY = gql`
       filter: $filter
       before: $before
       after: $after
+      sortBy: $sortBy
     ) {
       pageInfo {
         hasNextPage

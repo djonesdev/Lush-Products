@@ -1,4 +1,4 @@
-import PageLayout from "../components/PageLayout/PageLayout";
+import PageLayout from "components/PageLayout/PageLayout";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 const client = new ApolloClient({

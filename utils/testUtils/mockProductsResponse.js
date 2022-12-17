@@ -1,9 +1,15 @@
 export default {
     products: {
-        pageInfo: {}, 
+        pageInfo: {
+            hasNextPage: true, 
+            hasPreviousPage: true, 
+            endCursor: '123456', 
+            startCursor: '45677'
+        }, 
         edges: [
             {
                 __typename:"ProductCountableEdge",
+                cursor: '123456',
                 node: { 
                     __typename: "Product",
                     id: "UHJvZHVjdDoxMjk=",

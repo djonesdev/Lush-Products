@@ -5,8 +5,6 @@ import { RouterContext } from "next/dist/shared/lib/router-context";
 import { routerMock } from "../../utils/testUtils/mockRouter";
 import Header from "./Header"
 
-const push = jest.fn().mockResolvedValue(true);
-
 describe("Header", () => {
     beforeEach(() => {
         render (

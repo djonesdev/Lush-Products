@@ -1,0 +1,6 @@
+export { default as Card } from './CardStyles'
+export { default as StyledButton } from './ButtonStyles'
+export { default as ItemStyles } from './ItemStyles'
+export { default as NavStyles } from './NavStyles'
+export { default as PriceTag } from './PriceTag'
+export { default as Title } from './Title'

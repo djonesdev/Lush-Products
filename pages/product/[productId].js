@@ -1,11 +1,9 @@
 import { useQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
-import styled from 'styled-components';
 
-import { SINGLE_PRODUCT_QUERY } from '../../graphQL/queries/singleProduct'
-import DisplayError from '../../components/ErrorMessage'
-import SingleProduct from '../../components/SingleProduct/SingleProduct';
-import Card from '../../components/styles/CardStyles';
+import { SINGLE_PRODUCT_QUERY } from 'graphQL/queries/singleProduct'
+import { DisplayError, SingleProduct } from 'components'
+import { Card } from "components/styles";
 
 export default function SingleProductPage() {
     const { query } = useRouter()

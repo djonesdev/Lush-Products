@@ -1,5 +1,5 @@
 import React from "react";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import SingleProduct from "./SingleProduct";
 import mockProductResponse from "../../utils/testUtils/mockProductResponse";
 
@@ -21,20 +21,23 @@ describe("SingleProduct", () => {
   });
 
   describe("Should allow user to change display image", () => {
-    it("Should allow the user to change the main display image", () => {
-      const initialMainImageSrc =
-        "https://twstg2.eu.saleor.cloud/media/products/whoosh_shower_jelly_2020.png";
-      const subImageSrc =
-        "https://twstg2.eu.saleor.cloud/media/products/hero_whoosh_shower_jelly_sp_part_4.jpg";
+    it("Should allow the user to change the main display image", async () => {
+      const initialMainImageSrc = /image\?url=https%3A%2F%2Ftwstg2.eu.saleor.cloud%2Fmedia%2Fproducts%2Fwhoosh_shower_jelly_2020.png/ig
+      const subImageSrc =/image\?url=https%3A%2F%2Ftwstg2.eu.saleor.cloud%2Fmedia%2Fproducts%2Fhero_whoosh_shower_jelly_sp_part_4.jpg/ig
 
       const mainDisplayImage = screen.getByTestId("main-product-image");
       const subImage = screen.getByTestId("sub-image-1");
 
-      expect(mainDisplayImage).toHaveAttribute("src", initialMainImageSrc);
-      expect(subImage).toHaveAttribute("src", subImageSrc);
+      await waitFor(() => {
+        expect(mainDisplayImage).toHaveAttribute("src", expect.stringMatching(initialMainImageSrc));
+        expect(subImage).toHaveAttribute("src", expect.stringMatching(subImageSrc));
+      });
 
       fireEvent.click(subImage);
-      expect(mainDisplayImage).toHaveAttribute("src", subImageSrc);
+
+      await waitFor(() => {
+        expect(mainDisplayImage).toHaveAttribute("src", expect.stringMatching(subImageSrc));
+      });
     });
   });
 });
