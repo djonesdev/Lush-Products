@@ -13,9 +13,11 @@ const mockQuery = [
       query: PRODUCT_QUERY,
         variables: { 
             channel: 'uk', 
-            first: 0, 
-            last: 10, 
-            isPublished: true 
+            first: 10, 
+            last: 0, 
+            filter: {
+                isPublished: true,
+            }
         }
     },
     result: {

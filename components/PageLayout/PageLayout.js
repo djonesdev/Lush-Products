@@ -1,6 +1,6 @@
-import React from 'react'
-import styled, { createGlobalStyle } from 'styled-components'
-import Header from '../Header/Header'
+import React from "react";
+import styled, { createGlobalStyle } from "styled-components";
+import Header from "../Header/Header";
 
 const GlobalStyles = createGlobalStyle`
     @font-family: 'radnika_next';
@@ -16,6 +16,9 @@ const GlobalStyles = createGlobalStyle`
         --offWhite: #EDEDED;
         --maxWidth: 1000px;
         --bs: 0 12px 24px, 0, rgba(0,0,0,0.09);
+        @media (max-width: 700px) {
+            font-size: 0.7rem;
+        }
     }
 
     *, *:before, *:after {
@@ -51,19 +54,17 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 const InnerStyles = styled.div`
-    max-width: var(--maxWidth);
-    margin: 0 auto; 
-    padding: 2rem;
+  max-width: var(--maxWidth);
+  margin: 0 auto;
+  padding: 2rem;
 `;
 
 export default function PageLayout({ children }) {
   return (
     <div>
-        <GlobalStyles />
-        <Header />
-        <InnerStyles>
-            {children}
-        </InnerStyles>
+      <GlobalStyles />
+      <Header />
+      <InnerStyles>{children}</InnerStyles>
     </div>
-  )
+  );
 }

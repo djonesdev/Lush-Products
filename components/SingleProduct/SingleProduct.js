@@ -39,7 +39,6 @@ const ProductStyles = styled.div`
 `;
 
 export default function SingleProduct(product) {
-  console.log(product, "THIS IS THE TEST PRODUCT")
   const { name, pricing, description, media } = product.product
   const productPrice = pricing.priceRange.start.gross.amount
   const descriptionObject = JSON.parse(description);

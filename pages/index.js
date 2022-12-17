@@ -1,67 +1,94 @@
-import { useState } from "react";
-import { useQuery } from "@apollo/client";
+import { useEffect, useState } from "react";
+import { useQuery, useLazyQuery } from "@apollo/client";
 import styled from "styled-components";
 
 import ItemOverview from "../components/ItemOverview/ItemOverview";
 import StyledButton from "../components/styles/ButtonStyles";
+import Card from "../components/styles/CardStyles";
 import { PRODUCT_QUERY } from "../graphQL/queries/products";
+import DisplayError from "../components/ErrorMessage";
 
 const ProductsListStyles = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 60px;
+  grid-template-columns: 1fr 1fr;
+  justify-content: space-evenly;
+  @media (max-width: 700px) {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    grid-row-gap: 70px;
+  }
+  grid-gap: 80px;
 `;
 
 const LoadMoreButtonStyles = styled.div`
   display: flex;
   flex: 1;
-  justify-content: center;
-`;
-
-const ProductContainerStyles = styled.div`
-    opacity: ${props => props.isLoading ? 0.3 : 1};
+  justify-content: space-evenly;
+  margin-top: 3rem;
 `;
 
 export default function HomePage() {
-  const [queryParams, setQueryParams] = useState({
+  const queryParams = {
     channel: "uk",
-    first: 10,
+    first: 20,
     last: 0,
-    isPublished: true,
-  });
+    filter: {
+      isPublished: true,
+    },
+  };
 
-  const {
-    data,
-    loading: isLoading,
-    error = false,
-    fetchMore,
-  } = useQuery(PRODUCT_QUERY, {
-    variables: queryParams,
-  });
+  const [getProducts, { loading: isLoading, error, data }] =
+    useLazyQuery(PRODUCT_QUERY);
 
-  console.log(error, 'this is the error')
-  
+  useEffect(() => {
+    getProducts({ variables: queryParams });
+  }, []);
+
   const onClickLoadMore = () => {
-      setQueryParams({ ...queryParams, first: queryParams.first + 10 });
-      fetchMore({ ...queryParams, first: queryParams.first + 10 });
-    };
-    
-      // if (!data) return <p>Loading... </p>;
-    if (error) return <p>We have an error! Please try again later</p>;
+    getProducts({
+      variables: {
+        ...queryParams,
+        first: 0,
+        last: 20,
+        before: data?.products?.pageInfo.endCursor,
+      },
+    });
+  };
+
+  const onClickLoadPrevious = () => {
+    getProducts({
+      variables: {
+        ...queryParams,
+        last: 0,
+        first: 20,
+        after: data?.products?.pageInfo.startCursor,
+      },
+    });
+  };
+
+  if (isLoading) return <p>Loading... </p>;
+  if (error) return <DisplayError error={error} />;
   return (
-    <ProductContainerStyles isLoading={isLoading}>
+    <>
       <ProductsListStyles>
         {data?.products?.edges?.map((product) => (
-          <ItemOverview key={product.node.key} product={product} />
+          <Card>
+            <ItemOverview key={product.node.key} product={product} />
+          </Card>
         ))}
       </ProductsListStyles>
       <LoadMoreButtonStyles>
+        {data?.products?.pageInfo?.hasPreviousPage && (
+          <StyledButton primary onClick={onClickLoadPrevious}>
+            Load previous page
+          </StyledButton>
+        )}
         {data?.products?.pageInfo?.hasNextPage && (
           <StyledButton primary onClick={onClickLoadMore}>
-            Load more
+            Load next page
           </StyledButton>
         )}
       </LoadMoreButtonStyles>
-    </ ProductContainerStyles>
+    </>
   );
 }

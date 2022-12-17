@@ -5,20 +5,7 @@ import styled from 'styled-components';
 import { SINGLE_PRODUCT_QUERY } from '../../graphQL/queries/singleProduct'
 import DisplayError from '../../components/ErrorMessage'
 import SingleProduct from '../../components/SingleProduct/SingleProduct';
-
-const ProductStyles = styled.div`
-  display: grid;
-  grid-auto-columns: 1fr;
-  grid-auto-flow: column;
-  max-width: var(--maxWidth);
-  justify-content: center;
-  align-items: top;
-  gap: 2rem;
-  img {
-    width: 100%;
-    object-fit: contain;
-  }
-`;
+import Card from '../../components/styles/CardStyles';
 
 export default function SingleProductPage() {
     const { query } = useRouter()
@@ -32,5 +19,9 @@ export default function SingleProductPage() {
     if (error) return <DisplayError error={error} />;
 
     const { product } = data
-    return <SingleProduct product={product} />;
+    return (
+      <Card>
+        <SingleProduct product={product} />
+      </Card>
+    );
 }
