@@ -12,6 +12,7 @@ import {
   ItemOverview,
   PaginationButtonList,
 } from "components";
+import Head from "next/head";
 
 const ProductsListStyles = styled.div`
   display: grid;
@@ -68,6 +69,9 @@ export default function HomePage() {
   if (error) return <DisplayError error={error} />;
   return (
     <>
+      <Head>
+        <title>LUSH Products</title>
+      </Head>
       <CategoryList
         onClick={onClickToggleCategory}
         categories={categoryData?.categories}

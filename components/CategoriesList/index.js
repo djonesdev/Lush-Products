@@ -27,12 +27,12 @@ const CategoryPill = styled.button`
 
 const CategoryText = styled.div`
   padding: 15px;
-  font-size: 1rem;
+  font-size: 1.4rem;
   font-weight: 500;
 `;
 
 const MoreText = styled.button`
-  font-size: 1rem;
+  font-size: 1.4rem;
   padding-left: 10px;
   padding-right: 10px;
   height: 40px;
