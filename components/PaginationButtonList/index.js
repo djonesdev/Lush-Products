@@ -14,15 +14,17 @@ export default function PaginationButtonList({
   getNextPage,
   queryParams,
   onClickTogglePage,
-  startCursor, 
-  endCursor
+  startCursor,
+  endCursor,
 }) {
-  const pageLimit = 20
+  const pageLimit = 20;
   const getNextPageQueryParams = {
-    variables: queryParams,
-    last: pageLimit,
-    first: 0,
-    before: startCursor,
+    variables: {
+      ...queryParams,
+      last: pageLimit,
+      first: 0,
+      before: endCursor,
+    },
   };
   // TODO: This doesn't seem to be working correctly, i expect the below query
   // to return the last 20 products before the current first product occupying index 0
@@ -30,9 +32,9 @@ export default function PaginationButtonList({
   const getPreviousPageQueryParams = {
     variables: {
       ...queryParams,
-      first: 0,
-      last: pageLimit,
-      before: endCursor,
+      first: pageLimit,
+      last: 0,
+      after: endCursor,
     },
   };
 
@@ -41,8 +43,10 @@ export default function PaginationButtonList({
       {hasPreviousPage && (
         <StyledButton
           primary
-          onClick={() => onClickTogglePage(getNextPage, getNextPageQueryParams)}
-          data-testid='previous-pagination-button'
+          onClick={() =>
+            onClickTogglePage(getNextPage, getPreviousPageQueryParams)
+          }
+          data-testid="previous-pagination-button"
         >
           Load previous page
         </StyledButton>
@@ -50,10 +54,8 @@ export default function PaginationButtonList({
       {hasNextPage && (
         <StyledButton
           primary
-          onClick={() =>
-            onClickTogglePage(getNextPage, getPreviousPageQueryParams)
-          }
-          data-testid='next-pagination-button'
+          onClick={() => onClickTogglePage(getNextPage, getNextPageQueryParams)}
+          data-testid="next-pagination-button"
         >
           Load next page
         </StyledButton>

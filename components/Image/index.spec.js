@@ -3,7 +3,8 @@ import { render, screen, waitFor } from "@testing-library/react";
 import Image from "./";
 
 describe("Image", () => {
-  beforeEach(() => {
+
+  it("Should render with the provided image", async () => {
     render(
       <Image
         dataTestId="TEST_ID"
@@ -12,9 +13,6 @@ describe("Image", () => {
         productName="Whooosh"
       />
     );
-  });
-
-  it("Should render the name of the product", async () => {
     const imageSrc = /image\?url=https%3A%2F%2Ftwstg2.eu.saleor.cloud%2Fmedia%2F123456/
 
     const testImage = screen.getByTestId("TEST_ID");
@@ -23,6 +21,27 @@ describe("Image", () => {
       expect(testImage).toHaveAttribute(
         "src",
         expect.stringMatching(imageSrc)
+      );
+    });
+  });
+
+  it("Should render fallbackimage if no url is provided", async () => {
+    render(
+      <Image
+        dataTestId="TEST_ID"
+        src=""
+        alt="12346"
+        productName="Whooosh"
+      />
+    );
+    const placeholderImageSrc = /image\?url=%2Fimg.jpg/
+
+    const testImage = screen.getByTestId("TEST_ID");
+
+    await waitFor(() => {
+      expect(testImage).toHaveAttribute(
+        "src",
+        expect.stringMatching(placeholderImageSrc)
       );
     });
   });
