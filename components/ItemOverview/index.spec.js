@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 
 import ItemOverview from ".";
-import mockProductsResponse from "utils/testUtils/mockProductsResponse";
+import mockProductsResponse from "utils/mocks/mockProductsResponse";
 
 const mockAddToCart = jest.fn();
 jest.mock("utils/useCart", () => {

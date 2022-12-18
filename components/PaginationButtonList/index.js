@@ -9,14 +9,12 @@ const LoadMoreButtonStyles = styled.div`
 `;
 
 export default function PaginationButtonList({
-  hasPreviousPage,
-  hasNextPage,
   getNextPage,
   queryParams,
   onClickTogglePage,
-  startCursor,
-  endCursor,
+  pageInfo,
 }) {
+  const { hasNextPage, hasPreviousPage, startCursor, endCursor } = pageInfo || {}
   const pageLimit = 20;
   const getNextPageQueryParams = {
     variables: {
@@ -27,14 +25,14 @@ export default function PaginationButtonList({
     },
   };
   // TODO: This doesn't seem to be working correctly, i expect the below query
-  // to return the last 20 products before the current first product occupying index 0
+  // to return the last 20 products before the current startCursor
   // Looks like it actually takes me back to the beginning of the products list and carries on from there
   const getPreviousPageQueryParams = {
     variables: {
       ...queryParams,
-      first: pageLimit,
-      last: 0,
-      after: endCursor,
+      first: 0,
+      last: pageLimit,
+      before: startCursor,
     },
   };
 

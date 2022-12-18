@@ -4,6 +4,8 @@ export default function useCart() {
   const [cartItems, setCartItems] = useState([]);
 
   const addToCart = product => {
+    alert('Not yet implemented!')
+    return
     const isItemInCart = cartItems?.find(item => item.node.id === product.node.id)
 
     if(isItemInCart) {

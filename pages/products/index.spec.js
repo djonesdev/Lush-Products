@@ -6,7 +6,7 @@ import React from "react";
 import Home from "./index";
 import { onClickTogglePage }from './handlers';
 import { PRODUCT_QUERY } from "../../graphQL/queries/products";
-import mockProductsResponse from "../../utils/testUtils/mockProductsResponse";
+import mockProductsResponse from "../../utils/mocks/mockProductsResponse";
 
 jest.mock('./handlers', () => {
     return {

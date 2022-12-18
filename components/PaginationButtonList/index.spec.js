@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import PaginationButtonList from ".";
-import mockProductsResponse from "../../utils/testUtils/mockProductsResponse";
+import mockProductsResponse from "../../utils/mocks/mockProductsResponse";
 
 const getProducts = jest.fn();
 const queryParams = {
@@ -37,12 +37,14 @@ describe("ItemOverview", () => {
   it("Should render the next page button if available", () => {
     render(
       <PaginationButtonList
-        hasPreviousPage={false}
-        hasNextPage={true}
+        pageInfo={{
+          hasPreviousPage: false,
+          hasNextPage: true,
+          startCursor: "123445",
+          endCursor: "6789",
+        }}
         queryParams={queryParams}
         onClickTogglePage={onClickTogglePage}
-        startCursor={"123445"}
-        endCursor={"6789"}
         getNextPage={getProducts}
       />
     );
@@ -63,17 +65,22 @@ describe("ItemOverview", () => {
     };
     render(
       <PaginationButtonList
-        hasPreviousPage={false}
-        hasNextPage={true}
+        pageInfo={{
+          hasPreviousPage: false,
+          hasNextPage: true,
+          startCursor: "123445",
+          endCursor: "6789",
+        }}
         queryParams={queryParams}
         onClickTogglePage={onClickTogglePage}
-        startCursor={"123445"}
-        endCursor={"6789"}
         getNextPage={getProducts}
       />
     );
     const nextButton = screen.getByTestId("next-pagination-button");
     fireEvent.click(nextButton);
-    expect(onClickTogglePage).toBeCalledWith(getProducts, expectedNextPageQuery);
+    expect(onClickTogglePage).toBeCalledWith(
+      getProducts,
+      expectedNextPageQuery
+    );
   });
 });

@@ -8,6 +8,7 @@ const GlobalStyles = createGlobalStyle`
     html {
         --red: #ff0000; 
         --black: #393939; 
+        --white: #FFFFFF; 
         --grey: #3A3A3A; 
         --gray: var(--grey);
         --lightGrey: #E1E1E1; 

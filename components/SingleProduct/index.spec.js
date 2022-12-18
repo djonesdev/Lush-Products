@@ -1,7 +1,7 @@
 import React from "react";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import SingleProduct from ".";
-import mockProductResponse from "../../utils/testUtils/mockProductResponse";
+import mockProductResponse from "../../utils/mocks/mockProductResponse";
 
 describe("SingleProduct", () => {
   beforeEach(() => {

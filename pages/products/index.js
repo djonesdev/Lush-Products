@@ -1,11 +1,11 @@
-import { useEffect } from "react";
-import { useLazyQuery, useQuery } from "@apollo/client";
+import { useEffect, useState } from "react";
+import { useLazyQuery } from "@apollo/client";
 import styled from "styled-components";
 
 import { Card } from "components/styles";
 import { PRODUCT_QUERY } from "graphQL/queries/products";
 import { CATEGORIES_QUERY } from "graphQL/queries/categories";
-import { onClickTogglePage } from "./handlers";
+import { onClickCategory, onClickTogglePage } from "./handlers";
 import {
   CategoryList,
   DisplayError,
@@ -37,52 +37,61 @@ export default function HomePage() {
     sortBy: { direction: "ASC", field: "RANK" },
   };
 
+  const [activeCategories, setActiveCategories] = useState([]);
+
   const [getProducts, { loading: isLoading, error, data }] =
     useLazyQuery(PRODUCT_QUERY);
 
-  const { data: categoryData } = useQuery(CATEGORIES_QUERY, {
-    variables: { first: 10 },
-  });
+  const [getCategories, { data: categoryData }] =
+    useLazyQuery(CATEGORIES_QUERY);
 
   useEffect(() => {
+    getCategories({
+      variables: { first: 10 },
+    });
     getProducts({ variables: queryParams });
   }, []);
 
-  const onClickCategory = (category) => {
-    const query = {
-      variables: queryParams,
-      last: pageLimit,
-      first: 0,
-      before: data?.products?.pageInfo.startCursor,
-      filter: { search: category },
+  useEffect(() => {
+    const queryWithCategories = {
+      variables: {
+        ...queryParams,
+        filter: { isPublished: true, categories: activeCategories },
+      },
     };
-    onClickTogglePage(getProducts, query);
-  };
+    onClickTogglePage(getProducts, queryWithCategories);
+  }, [activeCategories]);
 
-  if (isLoading) return <p>Loading... </p>;
+  const onClickToggleCategory = (category) =>
+    onClickCategory(category, activeCategories, setActiveCategories);
+
   if (error) return <DisplayError error={error} />;
   return (
     <>
       <CategoryList
-        onClick={onClickCategory}
+        onClick={onClickToggleCategory}
         categories={categoryData?.categories}
+        activeCategories={activeCategories}
+        getCategories={getCategories}
       />
-      <ProductsListStyles>
-        {data?.products?.edges?.map((product) => (
-          <Card key={product.node.key}>
-            <ItemOverview product={product} />
-          </Card>
-        ))}
-      </ProductsListStyles>
-      <PaginationButtonList
-        hasPreviousPage={data?.products?.pageInfo?.hasPreviousPage}
-        hasNextPage={data?.products?.pageInfo?.hasNextPage}
-        queryParams={queryParams}
-        onClickTogglePage={onClickTogglePage}
-        startCursor={data?.products?.pageInfo.startCursor}
-        endCursor={data?.products?.pageInfo.endCursor}
-        getNextPage={getProducts}
-      />
+      {isLoading && <p>Loading... </p>}
+      {!isLoading && (
+        <>
+          <ProductsListStyles>
+            {data?.products?.edges?.map((product) => (
+              <Card key={product.node.key}>
+                <ItemOverview product={product} />
+              </Card>
+            ))}
+          </ProductsListStyles>
+          <PaginationButtonList
+            queryParams={queryParams}
+            onClickTogglePage={onClickTogglePage}
+            pageInfo={data?.products?.pageInfo}
+            getNextPage={getProducts}
+          />
+        </>
+      )}
     </>
   );
 }

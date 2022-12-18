@@ -2,7 +2,7 @@ import React from "react"
 import { render, screen } from "@testing-library/react"
 import { RouterContext } from "next/dist/shared/lib/router-context";
 
-import { routerMock } from "../../utils/testUtils/mockRouter";
+import { routerMock } from "../../utils/mocks/mockRouter";
 import Header from "."
 
 describe("Header", () => {
