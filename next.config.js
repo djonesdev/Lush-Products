@@ -6,7 +6,6 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'twstg2.eu.saleor.cloud',
-        port: '',
         pathname: '/media/**',
       },
     ],
