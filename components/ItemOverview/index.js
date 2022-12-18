@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { useEffect } from "react";
 
 import productFallBackImage from "public/images/productFallBackImage.jpg";
 import Image from "../Image";
@@ -20,9 +19,9 @@ export default function ItemOverview({ product }) {
       <Link href={`/product/${id}`}>
         <Image src={imageThumbnail} alt={thumbnail?.alt} productName={name} />
         <Title>
-          <Link tabIndex={-1} href={`/product/${id}`}>
+          <p tabIndex={-1}>
             {name}
-          </Link>
+          </p>
         </Title>
         <PriceTag>£{productPrice.toFixed(2)}</PriceTag>
       </Link>

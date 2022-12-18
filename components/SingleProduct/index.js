@@ -69,6 +69,7 @@ export default function SingleProduct(product) {
         <div className="sub-images-container">
           {media.map((media, index) => (
             <Image
+              key={media?.id}
               dataTestId={`sub-image-${index}`}
               src={media?.url}
               alt={media?.alt}
@@ -85,8 +86,8 @@ export default function SingleProduct(product) {
       </div>
       <div className="details">
         <h2>{name}</h2>
-        {descriptionObject?.blocks?.map((description) => (
-          <p dangerouslySetInnerHTML={{ __html: description.data.text }} />
+        {descriptionObject?.blocks?.map((description, index) => (
+          <p key={index} dangerouslySetInnerHTML={{ __html: description.data.text }} />
         ))}
       </div>
     </ProductStyles>

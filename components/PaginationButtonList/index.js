@@ -25,8 +25,8 @@ export default function PaginationButtonList({
     },
   };
   // TODO: This doesn't seem to be working correctly, i expect the below query
-  // to return the last 20 products before the current startCursor
-  // Looks like it actually takes me back to the beginning of the products list and carries on from there
+  // to return the last 20 products before the current startCursor 
+  // instead it takes me to another part of the list
   const getPreviousPageQueryParams = {
     variables: {
       ...queryParams,

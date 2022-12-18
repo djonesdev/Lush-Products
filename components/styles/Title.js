@@ -6,13 +6,14 @@ const Title = styled.h3`
   transform: skew(-5deg) rotate(-1deg);
   margin-top: -3rem;
   text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
-  a {
+  p {
     background: var(--black);
     display: inline;
     line-height: 1.3;
     font-size: 2rem;
     text-align: center;
     color: white;
+    font-weight: 500;
     padding: 0 1rem;
   }
 `;

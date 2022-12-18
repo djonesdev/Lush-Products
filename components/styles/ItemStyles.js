@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const Item = styled.div`
-  background: white;
+  background: var(--white);
   box-shadow: var(--bs);
   position: relative;
   display: flex;
@@ -17,6 +17,9 @@ const Item = styled.div`
     flex-grow: 1;
     padding: 0 3rem;
     font-size: 1.5rem;
+    &:hover {
+      text-decoration: underline;
+    }
   }
   .buttonList {
     display: grid;
